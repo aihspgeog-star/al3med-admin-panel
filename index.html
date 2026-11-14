@@ -1,132 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>AL3med ESP Lab</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>العميد | لوحة الإدارة</title>
 <style>
-:root{--bg:#080c12;--panel:#121b26;--panel2:#192535;--green:#42f59b;--cyan:#50d9ff;--text:#eef6ff;--muted:#9aafc4;--gold:#ffd166;--red:#ff667a}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#172838,#080c12 65%);color:var(--text);font:14px system-ui,Arial,sans-serif;padding:14px}
-header,.panel{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid #293a4b;border-radius:16px;padding:14px;box-shadow:0 10px 25px #0005}
-header{margin-bottom:12px}h1{margin:0;font-size:23px;letter-spacing:1.8px;color:var(--green)}.sub{font-size:10px;color:var(--muted);letter-spacing:1.2px;margin-top:3px}
-.pill{display:inline-block;background:#163b2d;color:var(--green);padding:5px 8px;border-radius:20px;font-size:10px;margin-top:10px}
-h2{font-size:13px;margin:0 0 12px;color:var(--cyan);letter-spacing:1px}
-canvas{display:block;width:100%;height:auto;aspect-ratio:1/1;border:1px solid #31465a;border-radius:12px;background:#071019}
-.layout{display:grid;grid-template-columns:1fr;gap:12px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-label{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text);min-height:28px}
-input[type=checkbox]{accent-color:var(--green);width:17px;height:17px}
-button,select,input[type=range]{width:100%}button{border:1px solid #365064;border-radius:10px;padding:11px 8px;background:#1c2b3a;color:var(--text);font-weight:700}button.primary{background:var(--green);border-color:var(--green);color:#07120c}button.active{border-color:var(--green);color:var(--green)}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
-select{background:#0c141e;border:1px solid #33485c;color:var(--text);border-radius:9px;padding:9px}
-input[type=range]{accent-color:var(--green)}
-.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{background:#0b131c;border-radius:10px;padding:10px;text-align:center}.num{font-weight:800;color:var(--green);font-size:18px}.label{font-size:10px;color:var(--muted)}
-.note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}footer{text-align:center;color:#71869b;font-size:10px;padding:14px 0 3px}
-@media(min-width:700px){body{max-width:900px;margin:auto}.layout{grid-template-columns:1.1fr .9fr}canvas{aspect-ratio:1/1}.panel{align-self:start}}
+:root{color-scheme:dark;--bg:#090b10;--panel:#151923;--gold:#d9ac50;--muted:#aab1bd;--line:#30313a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#292316 0,#090b10 46%);color:#f6f1e6;font:15px system-ui,'Segoe UI',sans-serif;min-height:100vh}.wrap{max-width:850px;margin:auto;padding:24px 14px}header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:10px}.brand{font-size:25px;font-weight:900;color:var(--gold)}.sub{font-size:12px;color:var(--muted)}.pill{font-size:12px;border:1px solid #6c542b;border-radius:30px;padding:7px 11px;color:var(--gold)}.panel{background:linear-gradient(150deg,#1b1e27,#11141c);border:1px solid #3b3429;border-radius:18px;padding:19px;margin-bottom:16px;box-shadow:0 12px 36px #0004}h2{font-size:17px;margin:0 0 16px;color:var(--gold)}label{display:block;font-size:13px;color:#e6d9bc;margin:0 0 7px}input,select{width:100%;background:#0c0f15;border:1px solid #44403a;color:white;border-radius:11px;padding:12px;font:inherit;outline:none}input:focus,select:focus{border-color:var(--gold)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.field{margin-bottom:14px}button{border:0;border-radius:11px;padding:12px 18px;font:inherit;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#f1cc75,#bd8831);color:#1b160e}button:disabled{opacity:.55;cursor:wait}.secondary{background:#252831;color:#e8d7ae;border:1px solid #51432b}.danger{background:#402329;color:#ffd4d4;border:1px solid #73404b;padding:7px 12px}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.hidden{display:none!important}.notice{margin:12px 0;min-height:20px;color:#d9b96c;overflow-wrap:anywhere}.notice.error{color:#ff9e9e}.notice.ok{color:#9bdfad}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{text-align:center;background:#151923;border:1px solid #393327;padding:16px 8px;border-radius:14px}.stat strong{display:block;color:var(--gold);font-size:24px}.stat span{font-size:12px;color:var(--muted)}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;min-width:620px}th,td{text-align:right;border-bottom:1px solid #34323a;padding:11px 9px;font-size:13px}th{color:#d8bd83}code{direction:ltr;display:inline-block;color:#f3d28a;font-size:12px}.badge{font-size:12px;padding:4px 8px;border-radius:30px;background:#263729;color:#a7e7ae}.badge.off{background:#412b2b;color:#ffb1b1}footer{color:#8b909c;text-align:center;font-size:12px;padding:14px} @media(max-width:550px){.grid{grid-template-columns:1fr}.brand{font-size:21px}.wrap{padding:16px 10px}.panel{padding:15px}.stats{gap:6px}.stat{padding:12px 3px}.stat strong{font-size:20px}}
 </style>
 </head>
-<body>
-<header>
-  <h1>AL3med ESP LAB</h1>
-  <div class="sub">TARGET PRACTICE • SIMULATION BUILD</div>
-  <span class="pill">OFFLINE TRAINING MODE</span>
-</header>
-<div class="layout">
-  <section class="panel">
-    <h2>TRAINING ARENA</h2>
-    <canvas id="arena" width="520" height="520"></canvas>
-    <div class="statgrid">
-      <div class="stat"><div class="num" id="targetCount">4</div><div class="label">TARGETS</div></div>
-      <div class="stat"><div class="num" id="hits">0</div><div class="label">AIM LOCKS</div></div>
-      <div class="stat"><div class="num" id="accuracy">0%</div><div class="label">PRACTICE</div></div>
-    </div>
-  </section>
-  <section class="panel">
-    <h2>ESP SETTINGS</h2>
-    <div class="controls">
-      <label><input id="boxes" type="checkbox" checked> ESP boxes</label>
-      <label><input id="names" type="checkbox" checked> Names</label>
-      <label><input id="distance" type="checkbox" checked> Distance</label>
-      <label><input id="tracers" type="checkbox" checked> Tracers</label>
-    </div>
-    <div class="row">
-      <button id="add" class="primary">+ Add target</button>
-      <button id="pause">Pause movement</button>
-    </div>
-    <h2 style="margin-top:18px">AIM ASSIST (SIMULATED)</h2>
-    <div class="controls">
-      <label><input id="aim" type="checkbox" checked> Auto-follow target</label>
-      <label><input id="fov" type="checkbox" checked> Show aim radius</label>
-    </div>
-    <div class="note">Follow speed</div>
-    <input id="speed" type="range" min="1" max="10" value="5">
-    <div class="row">
-      <button id="next">Select next target</button>
-      <button id="reset">Reset arena</button>
-    </div>
-    <h2 style="margin-top:18px">DISPLAY</h2>
-    <div class="row">
-      <label style="display:block">ESP color
-        <select id="color"><option value="#42f59b">Neon green</option><option value="#50d9ff">Cyan</option><option value="#ffd166">Gold</option><option value="#ff667a">Red</option></select>
-      </label>
-      <label style="display:block">Target speed
-        <select id="targetSpeed"><option value="0.6">Slow</option><option value="1" selected>Normal</option><option value="1.6">Fast</option></select>
-      </label>
-    </div>
-    <div class="note">Aim assist only moves the crosshair toward simulated targets in this page. It does not control another app or game and does not read game memory.</div>
-  </section>
-</div>
-<footer>AL3med ESP Lab • Educational simulation • No game integration</footer>
-<script>
-const canvas=document.getElementById('arena'),ctx=canvas.getContext('2d');
+<body><main class="wrap">
+<header><div><div class="brand">♛ العميد | AL3MED</div><div class="sub">لوحة إدارة أكواد التفعيل • Supabase</div></div><span class="pill" id="status">غير متصل</span></header>
+<section class="panel" id="loginPanel"><h2>🔐 دخول المدير</h2><div class="field"><label for="email">البريد الإلكتروني</label><input id="email" type="email" autocomplete="username" placeholder="admin@example.com"></div><div class="field"><label for="password">كلمة المرور</label><input id="password" type="password" autocomplete="current-password" placeholder="••••••••"></div><div class="actions"><button id="login">تسجيل الدخول</button></div><p class="sub">استخدم حساب المدير المسجّل في Supabase Authentication. صلاحيات المدير تُتحقق داخل السيرفر.</p></section>
+<div id="dashboard" class="hidden"><div class="actions" style="justify-content:space-between;margin-bottom:15px"><span id="who" class="sub"></span><button class="secondary" id="logout">تسجيل الخروج</button></div><div class="stats"><div class="stat"><strong id="total">—</strong><span>مجموع الأكواد</span></div><div class="stat"><strong id="active">—</strong><span>الأكواد الفعّالة</span></div><div class="stat"><strong id="revoked">—</strong><span>الملغاة</span></div></div>
+<section class="panel"><h2>✦ إنشاء أكواد تفعيل جديدة</h2><div class="grid"><div class="field"><label for="count">عدد الأكواد</label><input id="count" type="number" min="1" max="100" value="1"></div><div class="field"><label for="duration">المدة بالأيام</label><input id="duration" type="number" min="1" max="3650" value="30"></div><div class="field"><label for="devices">الأجهزة لكل كود</label><input id="devices" type="number" min="1" max="50" value="1"></div></div><div class="actions"><button id="create">إنشاء الأكواد</button><button class="secondary" id="refresh">تحديث القائمة</button></div><div id="created" class="notice"></div></section>
+<section class="panel"><h2>♛ إدارة الأكواد</h2><div class="scroll"><table><thead><tr><th>الكود</th><th>المدة</th><th>الأجهزة</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="rows"><tr><td colspan="5">اضغط تحديث القائمة</td></tr></tbody></table></div></section></div>
+<p id="message" class="notice" role="status" aria-live="polite"></p><footer>AL3MED ADMIN • لا تضع مفتاح service_role في هذه الصفحة</footer></main>
+<script type="module">
+// Public project URL and publishable/anon key only. Never insert service_role here.
+const SUPABASE_URL='https://iuyszbocqjsftxaxfdny.supabase.co';
+const SUPABASE_ANON_KEY='PASTE_YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY_HERE';
+const FUNCTION_NAME='al3med-license';
 const $=id=>document.getElementById(id);
-const state={running:true,locks:0,frames:0,selected:0,aimX:260,aimY:260};
-let targets=[];
-const names=['Player_01','Player_02','Bot_03','Player_04','Bot_05','Player_06','Bot_07','Player_08'];
-function makeTarget(i){
- return {name:names[i%names.length],x:75+Math.random()*370,y:95+Math.random()*330,dx:(Math.random()-.5)*2.4,dy:(Math.random()-.5)*2.4,dist:12+Math.floor(Math.random()*65),r:12+Math.random()*4};
-}
-function reset(){targets=Array.from({length:4},(_,i)=>makeTarget(i));state.selected=0;state.locks=0;state.frames=0;state.aimX=260;state.aimY=260;updateStats()}
-function updateStats(){$('targetCount').textContent=targets.length;$('hits').textContent=state.locks;$('accuracy').textContent=(state.frames?Math.min(100,Math.round(state.locks/state.frames*100)):0)+'%'}
-function line(x1,y1,x2,y2,color,width=1){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
-function drawTarget(t,i,color){
- const w=42,h=58;
- if($('tracers').checked)line(260,500,t.x,t.y,color,1);
- if($('boxes').checked){ctx.strokeStyle=color;ctx.lineWidth=2;ctx.strokeRect(t.x-w/2,t.y-h/2,w,h)}
- ctx.strokeStyle='#e6f2ff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(t.x,t.y-h/2+9,6,0,Math.PI*2);ctx.moveTo(t.x,t.y-h/2+15);ctx.lineTo(t.x,t.y+h/2-7);ctx.moveTo(t.x-10,t.y+3);ctx.lineTo(t.x+10,t.y+3);ctx.stroke();
- if($('names').checked){ctx.font='bold 12px system-ui';ctx.textAlign='center';ctx.fillStyle='#f2f7ff';ctx.fillText(t.name,t.x,t.y-h/2-10)}
- if($('distance').checked){ctx.font='11px system-ui';ctx.textAlign='center';ctx.fillStyle='#ffd166';ctx.fillText(t.dist+' m',t.x,t.y+h/2+14)}
- if(i===state.selected){ctx.strokeStyle='#fff';ctx.lineWidth=1;ctx.beginPath();ctx.arc(t.x,t.y,26,0,Math.PI*2);ctx.stroke()}
-}
-function frame(){
- const W=520,H=520,color=$('color').value;
- ctx.clearRect(0,0,W,H);ctx.fillStyle='#071019';ctx.fillRect(0,0,W,H);
- ctx.strokeStyle='#142a3b';ctx.lineWidth=1;
- for(let x=0;x<=W;x+=40)line(x,0,x,H,'#142a3b',.5);
- for(let y=0;y<=H;y+=40)line(0,y,W,y,'#142a3b',.5);
- ctx.fillStyle='#9aafc4';ctx.font='bold 11px system-ui';ctx.textAlign='left';ctx.fillText('AL3MED / TRAINING',12,20);
- if($('fov').checked){ctx.strokeStyle='#50d9ff66';ctx.lineWidth=1;ctx.beginPath();ctx.arc(260,260,115,0,Math.PI*2);ctx.stroke()}
- if(state.running){
-   const mult=Number($('targetSpeed').value);
-   for(const t of targets){t.x+=t.dx*mult;t.y+=t.dy*mult;if(t.x<35||t.x>485)t.dx*=-1;if(t.y<60||t.y>440)t.dy*=-1}
- }
- if($('aim').checked&&targets.length){
-   const t=targets[state.selected%targets.length],k=Number($('speed').value)/20;
-   state.aimX+=(t.x-state.aimX)*k;state.aimY+=(t.y-state.aimY)*k;
-   if(Math.hypot(t.x-state.aimX,t.y-state.aimY)<18){state.locks++;state.frames++;if(state.locks%80===0)state.selected=(state.selected+1)%targets.length}
- }
- targets.forEach(drawTargetWithIndex);
- function drawTargetWithIndex(t,i){drawTarget(t,i,color)}
- // simulated crosshair
- ctx.strokeStyle=$('aim').checked?'#50d9ff':'#ffffff';ctx.lineWidth=2;
- ctx.beginPath();ctx.moveTo(state.aimX-11,state.aimY);ctx.lineTo(state.aimX+11,state.aimY);ctx.moveTo(state.aimX,state.aimY-11);ctx.lineTo(state.aimX,state.aimY+11);ctx.stroke();
- ctx.beginPath();ctx.arc(state.aimX,state.aimY,5,0,Math.PI*2);ctx.stroke();
- updateStats();requestAnimationFrame(frame);
-}
-$('add').onclick=()=>{if(targets.length<12){targets.push(makeTarget(targets.length));updateStats()}else alert('Maximum 12 simulated targets.')};
-$('pause').onclick=()=>{state.running=!state.running;$('pause').textContent=state.running?'Pause movement':'Resume movement'};
-$('next').onclick=()=>{if(targets.length)state.selected=(state.selected+1)%targets.length};
-$('reset').onclick=reset;
-reset();frame();
-</script>
-</body>
-</html>
+let accessToken='',refreshToken='',userEmail='';
+function msg(s,kind=''){const el=$('message');el.textContent=s;el.className='notice '+kind}
+function configured(){if(SUPABASE_ANON_KEY.startsWith('PASTE_')){msg('أضف مفتاح Supabase publishable/anon العام داخل ملف index.html أولاً.','error');return false}return true}
+async function request(path,body,token){const res=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON_KEY,...(token?{'Authorization':'Bearer '+token}:{})},body:JSON.stringify(body)});let data;try{data=await res.json()}catch{data={error:'استجابة غير صالحة من السيرفر'}}if(!res.ok)throw Error(data.error_description||data.msg||data.error||data.message||('HTTP '+res.status));return data}
+async function signIn(){if(!configured())return;const email=$('email').value.trim(),password=$('password').value;if(!email||!password){msg('أدخل البريد وكلمة المرور','error');return} $('login').disabled=true;try{const d=await request(SUPABASE_URL+'/auth/v1/token?grant_type=password',{email,password});accessToken=d.access_token;refreshToken=d.refresh_token;userEmail=d.user?.email||email;await verifyAdmin();$('loginPanel').classList.add('hidden');$('dashboard').classList.remove('hidden');$('who').textContent=userEmail;$('status').textContent='متصل';$('password').value='';msg('تم الدخول والتحقق من صلاحية المدير','ok');await listCodes()}catch(e){accessToken='';msg('فشل الدخول: '+e.message,'error')}finally{$('login').disabled=false}}
+async function api(action,payload={}){if(!accessToken)throw Error('يجب تسجيل الدخول');return request(SUPABASE_URL+'/functions/v1/'+FUNCTION_NAME,{action,...payload},accessToken)}
+async function verifyAdmin(){const r=await api('admin_check');if(r.is_admin!==true&&r.admin!==true)throw Error('الحساب غير مخوّل بالإدارة أو دالة السيرفر لا تدعم admin_check')}
+function logout(){accessToken='';refreshToken='';userEmail='';$('dashboard').classList.add('hidden');$('loginPanel').classList.remove('hidden');$('status').textContent='غير متصل';$('rows').replaceChildren();msg('تم تسجيل الخروج')}
+function positive(id,max){const v=Number($(id).value);if(!Number.isSafeInteger(v)||v<1||v>max)throw Error('قيمة غير صحيحة: '+id);return v}
+async function createCodes(){const btn=$('create');btn.disabled=true;try{const count=positive('count',100),duration_days=positive('duration',3650),max_devices=positive('devices',50);const r=await api('create',{count,duration_days,max_devices});const codes=r.codes||r.created||[];if(!Array.isArray(codes)||!codes.length)throw Error('لم يرجع السيرفر أي أكواد؛ تأكد من تنفيذ action=create');const values=codes.map(x=>typeof x==='string'?x:x.code).filter(Boolean);$('created').replaceChildren();const pre=document.createElement('pre');pre.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;color:#f4d48e;direction:ltr;text-align:left';pre.textContent=values.join('\n');$('created').append('تم إنشاء '+values.length+' كود:\n',pre);msg('تم إنشاء الأكواد في السيرفر','ok');await listCodes()}catch(e){msg('تعذّر إنشاء الأكواد: '+e.message,'error')}finally{btn.disabled=false}}
+async function listCodes(){try{const r=await api('list');const items=r.codes||r.items||[];if(!Array.isArray(items))throw Error('صيغة القائمة غير صحيحة');const body=$('rows');body.replaceChildren();let active=0,revoked=0;for(const item of items){const off=!!item.revoked_at||item.active===false||item.revoked===true;if(off)revoked++;else active++;const tr=document.createElement('tr');const code=document.createElement('td'),days=document.createElement('td'),devices=document.createElement('td'),state=document.createElement('td'),action=document.createElement('td');const c=document.createElement('code');c.textContent=item.code||item.code_preview||item.code_masked||'مخفي';code.append(c);days.textContent=String(item.duration_days??'—');devices.textContent=String(item.max_devices??'—');const b=document.createElement('span');b.className='badge'+(off?' off':'');b.textContent=off?'ملغى':'فعّال';state.append(b);if(!off){const btn=document.createElement('button');btn.className='danger';btn.textContent='إلغاء';btn.addEventListener('click',()=>revokeCode(item.id));action.append(btn)}tr.append(code,days,devices,state,action);body.append(tr)}if(!items.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=5;td.textContent='لا توجد أكواد حالياً';tr.append(td);body.append(tr)}$('total').textContent=items.length;$('active').textContent=active;$('revoked').textContent=revoked}catch(e){msg('تعذّر تحميل القائمة: '+e.message,'error')}}
+async function revokeCode(id){if(!id){msg('معرّف الكود غير موجود','error');return}if(!confirm('متأكد تريد تلغي هذا الكود؟'))return;try{await api('revoke',{id});msg('تم إلغاء الكود','ok');await listCodes()}catch(e){msg('تعذّر الإلغاء: '+e.message,'error')}}
+$('login').addEventListener('click',signIn);$('logout').addEventListener('click',logout);$('create').addEventListener('click',createCodes);$('refresh').addEventListener('click',listCodes);
+</script></body></html>
